@@ -1,0 +1,26 @@
+{
+  "name": "mongo_test",
+  "version": "1.0.0",
+  "description": "Testing mongo db",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmayaWaka/mongotest.git"
+  },
+  "keywords": [
+    "mongo",
+    "test"
+  ],
+  "author": "Amaya Bradley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmayaWaka/mongotest/issues"
+  },
+  "homepage": "https://github.com/AmayaWaka/mongotest#readme",
+  "dependencies": {
+    "mongodb": "^4.9.1"
+  }
+}
