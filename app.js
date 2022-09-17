@@ -1,52 +1,30 @@
-const MongoClient = require('mongodb').MongoClient;
-const assert = require("assert");
+const mongoose = require('mongoose');
 
 //Connection URL
 
-const url = 'mongodb://localhost:27017';
+mongoose.connect("mongodb://localhost:27017");
 
-//Database Name
-
-const dbName = 'fruitsDB';
-
-//Create a new MongoClient
-const client = new MongoClient(url);
-
-//use connect method to connect to the server
-
-
-
-client.connect(function(err){
-  assert.equal(null, err);
-  console.log("Connected Successfully to server");
-  const db = client.db(dbName);
-  client.close()
+const fruitSchema = new mongoose.Schema({
+  name: String,
+  rating: Number,
+  review: String
 });
-const insertDocuments = function(db, callback){
-  //get the documents collection
-  const collection = db.collection('fruits');
-  //Insert Some documents
-  collection.insertMany([
-{
+const Fruit = mongoose.model("Fruit", fruitSchema);
+const fruit = new Fruit({
   name: "Apple",
-  score: 8,
-  review: "Great fruit"
-},
-{
-  name: "Orange",
-  score: 8,
-  review: "To sweet"
-},
-{
-  name: "Banana",
-  score: 8,
-  review: "Great"
-}
-  ], function(err, result){
+  rating: 7,
+  review: "Pretty Solid as a fruit"
+});
+fruit.save();
+
+
+const findDocuments = function(db, callback){
+  const collection = db.collection('fruits');
+
+  collection.find({}).toArray(function(err, fruits){
     assert.equal(err, null);
-    assert.equal(3, result.result.n);
-    assert.equal(3, result.ops.length);
-    console.log("Inserted 3 documents into the collection");
-    callback(result);
+    console.log("Found the following records");
+    console.log(fruits);
+    callback(fruits);
   })
 }
