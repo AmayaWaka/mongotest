@@ -14,7 +14,7 @@ const fruitSchema = new mongoose.Schema({
 //Creates the collection called Fruits though we are using Fruit
 const Fruit = mongoose.model("Fruit", fruitSchema);
 //Creates the actual data to be inserted
-const fruit = new Fruit({
+const fruits = new Fruit({
   name: "Orange",
   rating: 7,
   review: "Pretty Solid as a fruit"
@@ -22,11 +22,20 @@ const fruit = new Fruit({
 //Saves the actual data to be inserted into DB
 // fruit.save().then(()=>console.log('Successfully added'));
 
+
 //Reading the fruit collection from database
+
 Fruit.find(function(err, fruit){
   if(err){
     console.log(err)
   }else{
-    console.log(fruit)
+
+    //Looping through the fruit array
+fruit.forEach(function(fruit){
+  //Closing connectiondoes not work
+  mongoose.connection.close().then(()=>console.log('Successfully closed'));
+  console.log(fruit.name)
+
+});
   }
-})
+});
